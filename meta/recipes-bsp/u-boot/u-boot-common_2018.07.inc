@@ -10,9 +10,6 @@ PE = "1"
 # repo during parse
 SRCREV = "8c5d4fd0ec222701598a27b26ab7265d4cee45a3"
 
-SRC_URI = "git://git.denx.de/u-boot.git \
-           file://CVE-2018-1000205-1.patch \
-           file://CVE-2018-1000205-2.patch \
-"
+SRC_URI = "git://git.denx.de/u-boot.git"
 
 S = "${WORKDIR}/git"
