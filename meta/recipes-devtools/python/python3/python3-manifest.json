@@ -916,6 +916,18 @@
             "${libdir}/python${PYTHON_MAJMIN}/__pycache__/numbers.*.pyc"
         ]
     },
+    "pathlib": {
+        "summary": "Object-oriented filesystem paths",
+        "rdepends": [
+            "core"
+        ],
+        "files": [
+            "${libdir}/python${PYTHON_MAJMIN}/pathlib.py"
+        ],
+        "cached": [
+            "${libdir}/python${PYTHON_MAJMIN}/__pycache__/pathlib.*.pyc"
+        ]
+    },
     "pickle": {
         "summary": "Python serialisation/persistence support",
         "rdepends": [
