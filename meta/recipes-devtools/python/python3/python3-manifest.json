@@ -856,6 +856,18 @@
             "${libdir}/python${PYTHON_MAJMIN}/__pycache__/uuid.*.pyc"
         ]
     },
+    "netrc": {
+        "summary": "netrc file processing",
+        "rdepends": [
+            "core"
+        ],
+        "files": [
+            "${libdir}/python${PYTHON_MAJMIN}/netrc.py"
+        ],
+        "cached": [
+            "${libdir}/python${PYTHON_MAJMIN}/__pycache__/netrc.*.pyc"
+        ]
+    },
     "netserver": {
         "summary": "Python Internet Protocol servers",
         "rdepends": [
