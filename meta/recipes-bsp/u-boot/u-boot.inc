@@ -129,6 +129,7 @@ do_compile () {
         done
         unset  i
     else
+        oe_runmake -C ${S} O=${B} ${UBOOT_MACHINE}
         oe_runmake -C ${S} O=${B} ${UBOOT_MAKE_TARGET}
     fi
 
