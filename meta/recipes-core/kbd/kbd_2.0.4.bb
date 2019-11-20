@@ -54,6 +54,10 @@ FILES_${PN}-consoletrans = "${datadir}/consoletrans"
 FILES_${PN}-keymaps = "${datadir}/keymaps"
 FILES_${PN}-unimaps = "${datadir}/unimaps"
 
+DEPENDS = " \
+    python3-native \
+"
+
 RDEPENDS_${PN}-ptest = "make"
 
 inherit update-alternatives
