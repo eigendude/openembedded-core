@@ -57,7 +57,6 @@ inherit python3-dir
 PYTHON_ROOT = "${STAGING_DIR_HOST}/${prefix}"
 
 # Make a package for each library, plus -dev
-PACKAGES = "${PN}-dbg ${BOOST_PACKAGES}"
 python __anonymous () {
     packages = []
     extras = []
@@ -70,6 +69,7 @@ python __anonymous () {
     d.setVar("BOOST_PACKAGES", " ".join(packages))
     d.setVar("BJAM_EXTRA", " ".join(extras))
 }
+PACKAGES = "${PN}-dbg ${BOOST_PACKAGES} boost-signals"
 
 # Override the contents of specific packages
 FILES_${PN}-graph_parallel = "${libdir}/libboost_graph_parallel.so.*"
@@ -86,10 +86,9 @@ FILES_${PN}-dev = "${includedir} ${libdir}/libboost_*.so"
 FILES_${PN}-staticdev = "${libdir}/libboost_*.a"
 
 # "boost" is a metapackage which pulls in all boost librabries
-PACKAGES += "${PN}"
+PACKAGES += "${PN} boost-signals"
 FILES_${PN} = ""
 ALLOW_EMPTY_${PN} = "1"
-RRECOMMENDS_${PN} += "${BOOST_PACKAGES}"
 RRECOMMENDS_${PN}_class-native = ""
 
 # to avoid GNU_HASH QA errors added LDFLAGS to ARCH; a little bit dirty but at least it works
