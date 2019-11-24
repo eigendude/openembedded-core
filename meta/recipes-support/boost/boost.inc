@@ -2,8 +2,6 @@ SUMMARY = "Free peer-reviewed portable C++ source libraries"
 SECTION = "libs"
 DEPENDS = "bjam-native zlib bzip2"
 
-CVE_PRODUCT = "boost:boost"
-
 ARM_INSTRUCTION_SET_armv4 = "arm"
 ARM_INSTRUCTION_SET_armv5 = "arm"
 
@@ -83,7 +81,7 @@ FILES_boost-test = "${libdir}/libboost_prg_exec_monitor*.so.* \
 
 # -dev last to pick up the remaining stuff
 PACKAGES += "${PN}-dev ${PN}-staticdev"
-FILES_${PN}-dev = "${includedir} ${libdir}/libboost_*.so ${libdir}/cmake"
+FILES_${PN}-dev = "${includedir} ${libdir}/libboost_*.so"
 FILES_${PN}-staticdev = "${libdir}/libboost_*.a"
 
 # "boost" is a metapackage which pulls in all boost librabries
