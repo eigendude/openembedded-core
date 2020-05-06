@@ -52,6 +52,7 @@ SRC_URI = "\
      file://CVE-2019-17450.patch \
      file://CVE-2019-17451.patch \
      file://0001-Fix-a-missing-include-of-string.patch \
+     file://0017-binutils-drop-redundant-program_name-definition-fno-.patch \
 "
 S  = "${WORKDIR}/git"
 
