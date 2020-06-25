@@ -9,18 +9,25 @@ SECTION = "base"
 LICENSE = "GPLv3"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
 
-SRC_URI = "https://github.com/dosfstools/dosfstools/releases/download/v${PV}/${BP}.tar.xz \
+SRC_URI = "git://github.com/dosfstools/dosfstools;protocol=ssh \
           "
-SRC_URI[md5sum] = "07a1050db1a898e9a2e03b0c4569c4bd"
-SRC_URI[sha256sum] = "e6b2aca70ccc3fe3687365009dd94a2e18e82b688ed4e260e04b7412471cc173"
+SRCREV = "cc7514352cee68a8cdcb9ab50f37dc1e1e4b893a"
 
 UPSTREAM_CHECK_URI = "https://github.com/dosfstools/dosfstools/releases"
 
 inherit autotools pkgconfig
 
+DEPENDS += "gettext"
+
+S = "${WORKDIR}/git"
+
 EXTRA_OECONF = "--without-udev --enable-compat-symlinks"
 
 CFLAGS += "-D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
+
+do_configure_prepend () {
+    ( cd ${S}; ./autogen.sh )
+}
 
 BBCLASSEXTEND = "native"
 
