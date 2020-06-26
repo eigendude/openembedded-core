@@ -1,12 +1,12 @@
 require pseudo.inc
 
-SRC_URI = "git://git.yoctoproject.org/pseudo;branch=oe-core \
+SRC_URI = "git://github.com/Aclima/pseudo;branch=master \
            file://0001-configure-Prune-PIE-flags.patch \
            file://fallback-passwd \
            file://fallback-group \
            "
 
-SRCREV = "b94fa2fc81cde25865ee223ca437d07377229a53"
+SRCREV = "ef4055a5469eea4ae1a6079812ccd73583841162"
 S = "${WORKDIR}/git"
 PV = "1.9.0+git${SRCPV}"
 
