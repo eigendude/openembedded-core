@@ -50,3 +50,7 @@ do_install_append() {
         ${D}${sysconfdir}/init.d/rng-tools \
         ${D}${systemd_system_unitdir}/rngd.service
 }
+
+# /usr/bin/rngd seeds the kernel's random number entropy pool. On the
+# BeagleBone, this hammers the CPU at 100% for several minutes at startup
+SYSTEMD_AUTO_ENABLE_${PN} = "disable"
