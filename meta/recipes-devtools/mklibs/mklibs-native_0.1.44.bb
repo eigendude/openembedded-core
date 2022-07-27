@@ -20,3 +20,9 @@ SRC_URI[sha256sum] = "3af0b6bd35e5b6fc58d8b68827fbae2ff6b7e20dd2b238ccb9b49d8472
 UPSTREAM_CHECK_URI = "${DEBIAN_MIRROR}/main/m/mklibs/"
 
 inherit autotools gettext native
+
+TARGET_CPPFLAGS += "-std=gnu++98"
+TARGET_CXXFLAGS += "-std=gnu++98"
+
+BUILD_CPPFLAGS += "-std=gnu++98"
+BUILD_CXXFLAGS += "-std=gnu++98"
