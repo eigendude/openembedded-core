@@ -1,0 +1,56 @@
+From 462deb94f539841464b9f5aa34f81edacbe6b588 Mon Sep 17 00:00:00 2001
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Date: Sun, 10 Jan 2021 19:18:25 +1100
+Subject: [PATCH] src/roff/groff/pipeline.c: Use strsignal().
+
+POSIX.1-2008 added strsignal() to the C library and recommended its use
+over sys_siglist[], but groff's pipeline management hadn't been updated
+in that respect since that time.
+
+* configure.ac: Check for strsignal().
+* src/roff/groff/pipeline.c (xstrsignal): Use return value of
+  strsignal() if it is available.
+
+Thanks to an anonymous contributor for the report and the patch.
+
+Fixes <https://savannah.gnu.org/bugs/?59835>.
+---
+ configure.ac              | 1 +
+ src/roff/groff/pipeline.c | 5 +++++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 28e75f17..182be01f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -140,6 +140,7 @@ AC_REPLACE_FUNCS([fmod getcwd putenv strcasecmp \
+ LIBS="$saved_libs"
+ AC_CHECK_FUNCS([gettimeofday isatty kill rename setlocale strsep])
+ GROFF_MKSTEMP
++AC_CHECK_DECLS([strsignal, getc_unlocked])
+ AC_CHECK_DECLS([sys_siglist, getc_unlocked])
+ AM_LANGINFO_CODESET
+ 
+diff --git a/src/roff/groff/pipeline.c b/src/roff/groff/pipeline.c
+index 2e3236f3..73ab432c 100644
+--- a/src/roff/groff/pipeline.c
++++ b/src/roff/groff/pipeline.c
+@@ -570,10 +570,15 @@ static const char *xstrsignal(int n)
+   static char buf[sizeof("Signal ") + 1 + sizeof(int) * 3];
+ 
+ #ifdef NSIG
++#if HAVE_DECL_STRSIGNAL
++  if (n >= 0 && n < NSIG && strsignal(n) != 0)
++    return strsignal(n);
++#else
+ #if HAVE_DECL_SYS_SIGLIST
+   if (n >= 0 && n < NSIG && sys_siglist[n] != 0)
+     return sys_siglist[n];
+ #endif /* HAVE_DECL_SYS_SIGLIST */
++#endif /* HAVE_DECL_STRSIGNAL */
+ #endif /* NSIG */
+   sprintf(buf, "Signal %d", n);
+   return buf;
+-- 
+2.34.1
+
