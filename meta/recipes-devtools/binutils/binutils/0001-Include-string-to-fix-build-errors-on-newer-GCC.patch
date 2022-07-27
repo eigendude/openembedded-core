@@ -1,0 +1,37 @@
+From d4a36586dc920b6b5a6a969ffe40013122edfb93 Mon Sep 17 00:00:00 2001
+From: Garrett Brown <garrett.brown@aclima.io>
+Date: Wed, 27 Jul 2022 13:28:23 -0700
+Subject: [PATCH] Include <string> to fix build errors on newer GCC
+
+---
+ gold/descriptors.cc | 1 +
+ gold/dirsearch.cc   | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/gold/descriptors.cc b/gold/descriptors.cc
+index 92fd42f41f6..d5cc9fc4c95 100644
+--- a/gold/descriptors.cc
++++ b/gold/descriptors.cc
+@@ -26,6 +26,7 @@
+ #include <cstdio>
+ #include <cstring>
+ #include <fcntl.h>
++#include <string>
+ #include <unistd.h>
+ 
+ #include "debug.h"
+diff --git a/gold/dirsearch.cc b/gold/dirsearch.cc
+index 6b2f23155f7..19cc46c7fe9 100644
+--- a/gold/dirsearch.cc
++++ b/gold/dirsearch.cc
+@@ -24,6 +24,7 @@
+ 
+ #include <cerrno>
+ #include <cstring>
++#include <string>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <dirent.h>
+-- 
+2.34.1
+
