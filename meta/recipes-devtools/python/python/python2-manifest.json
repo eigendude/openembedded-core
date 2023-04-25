@@ -705,7 +705,6 @@
             "robotparser", 
             "runpy", 
             "shell", 
-            "smtpd", 
             "sqlite3", 
             "sqlite3", 
             "stringold", 
@@ -952,21 +951,6 @@
             "${libdir}/python2.7/popen2.py", 
             "${libdir}/python2.7/shlex.py", 
             "${libdir}/python2.7/shutil.py"
-        ]
-    }, 
-    "smtpd": {
-        "summary": "Python Simple Mail Transport Daemon", 
-        "rdepends": [
-            "core", 
-            "fcntl", 
-            "io", 
-            "lang"
-        ], 
-        "files": [
-            "${bindir}/smtpd.py", 
-            "${libdir}/python2.7/asynchat.py", 
-            "${libdir}/python2.7/asyncore.py", 
-            "${libdir}/python2.7/smtpd.py"
         ]
     }, 
     "sqlite3": {
