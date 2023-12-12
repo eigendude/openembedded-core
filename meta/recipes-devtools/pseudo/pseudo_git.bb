@@ -1,17 +1,12 @@
 require pseudo.inc
 
-SRC_URI = "git://git.yoctoproject.org/pseudo \
+SRC_URI = "git://git@github.com/Aclima/pseudo;protocol=ssh;branch=master \
            file://0001-configure-Prune-PIE-flags.patch \
            file://fallback-passwd \
            file://fallback-group \
-           file://moreretries.patch \
-           file://toomanyfiles.patch \
-           file://0001-maketables-wrappers-use-Python-3.patch \
-           file://0001-Add-statx.patch \
-           file://0001-realpath.c-Remove-trailing-slashes.patch \
            "
 
-SRCREV = "060058bb29f70b244e685b3c704eb0641b736f73"
+SRCREV = "ef4055a5469eea4ae1a6079812ccd73583841162"
 S = "${WORKDIR}/git"
 PV = "1.9.0+git${SRCPV}"
 
