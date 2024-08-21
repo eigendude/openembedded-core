@@ -7,8 +7,6 @@ SRC_URI[sha256sum] = "6be126e3225486dff286a8fb9a06246a5253f4c7c53b475ea5f5ac934e
 
 inherit pypi setuptools3
 
-PACKAGES =+ "${PN}-tests"
-
 FILES:${PN}-tests += " \
     ${PYTHON_SITEPACKAGES_DIR}/psutil/test* \
     ${PYTHON_SITEPACKAGES_DIR}/psutil/__pycache__/test* \
