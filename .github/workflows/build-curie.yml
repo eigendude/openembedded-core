@@ -1,0 +1,93 @@
+name: Build Curie OS
+
+# Controls when the action will run. Triggers the workflow on push or pull
+# request events but only for the scarthgap branch
+on:
+  push:
+    branches: [scarthgap]
+  pull_request:
+    branches: [scarthgap]
+
+jobs:
+  build:
+    runs-on: [self-hosted, Linux]
+
+    steps:
+      - name: Build environment information
+        run: 'echo "Matrix OS: ${{ runner.os }} on $HOSTNAME with $(getconf _NPROCESSORS_ONLN) cores"'
+
+      # Checkout the repository using a personal access token
+      #
+      # Requires a personal access token. Create a personal access token via
+      # account settings, "Developer settings", "Personal access tokens".
+      #
+      # Copy the created token and add it as a secret to the repository in
+      # which the action is going to be executed with the name "ACCESS_TOKEN".
+      #
+      - name: Checkout Curie OS
+        uses: actions/checkout@v4
+        with:
+          repository: Aclima/curie-os
+          ref: master
+          token: ${{ secrets.ACCESS_TOKEN }}
+          fetch-depth: 0  # Ensure full clone with all branches and history
+
+      # Install system dependencies
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            build-essential \
+            chrpath \
+            cpio \
+            curl \
+            debianutils \
+            diffstat \
+            gawk \
+            git-core \
+            gzip \
+            iputils-ping \
+            libffi-dev \
+            libssl-dev \
+            lz4 \
+            python3 \
+            python3-pexpect \
+            python3-pip \
+            socat \
+            texinfo \
+            unzip \
+            wget \
+            xz-utils \
+            zstd
+
+      # Build Curie OS
+      #
+      # Note: this builds in the directory /var/work. First you must create the
+      # directory and take ownership:
+      #
+      #   sudo mkdir /var/work
+      #   sudo chown -R $(whoami):$(whoami) /var/work
+      #
+      - name: Build Curie OS
+        run: make BUILD_DIR=/var/work
+
+#
+# Steps to set up a self-hosted runner:
+#
+# 1. Go to your repository on GitHub, then to the "Settings" tab.
+#
+# 2. Navigate to "Actions" -> "Runners" -> "New self-hosted runner".
+#
+# 3. Follow the instructions to download and configure the runner on your
+#    server (e.g., Cinder).
+#
+# 4. Run the installation command provided by GitHub.
+#
+# 5. Start the runner on your server using the command provided. Make sure to
+#    start it as a service to automatically restart if the server reboots.
+#
+# 6. The server will now act as a self-hosted GitHub Actions runner.
+#
+# Make sure the server where the runner is installed is online before triggering
+# the workflow, as it won’t attempt to launch a runner for an offline server.
+#
