@@ -1,28 +1,25 @@
-
 SUMMARY = "Kexec fast reboot tools"
 DESCRIPTION = "Kexec is a fast reboot feature that lets you reboot to a new Linux kernel"
-AUTHOR = "Eric Biederman"
 HOMEPAGE = "http://kernel.org/pub/linux/utils/kernel/kexec/"
 SECTION = "kernel/userland"
 LICENSE = "GPLv2"
-LIC_FILES_CHKSUM = "file://COPYING;md5=ea5bed2f60d357618ca161ad539f7c0a \
-                    file://kexec/kexec.c;beginline=1;endline=20;md5=af10f6ae4a8715965e648aa687ad3e09"
+LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+                    file://kexec/kexec.c;beginline=1;endline=20;md5=af10f6ae4a8715965e648aa687ad3e09 \
+                    "
 DEPENDS = "zlib xz"
 
 SRC_URI = "${KERNELORG_MIRROR}/linux/utils/kernel/kexec/kexec-tools-${PV}.tar.gz \
-    file://kdump \
-    file://kdump.conf \
-    file://kdump.service \
-    file://0001-powerpc-change-the-memory-size-limit.patch \
-    file://0002-purgatory-Pass-r-directly-to-linker.patch \
-    file://0003-kexec-ARM-Fix-add_buffer_phys_virt-align-issue.patch \
-    file://0004-x86_64-Add-support-to-build-kexec-tools-with-x32-ABI.patch \
-    file://0005-Disable-PIE-during-link.patch \
-    file://0006-kexec-arm-undefine-__NR_kexec_file_load-for-arm.patch \
-"
+           file://kdump \
+           file://kdump.conf \
+           file://kdump.service \
+           file://0001-powerpc-change-the-memory-size-limit.patch \
+           file://0002-purgatory-Pass-r-directly-to-linker.patch \
+           file://0005-Disable-PIE-during-link.patch \
+           file://0001-arm64-kexec-disabled-check-if-kaslr-seed-dtb-propert.patch \
+           file://0001-kexec.c-add-MFD_NOEXEC_SEAL-flag-explicitly.patch \
+           "
 
-SRC_URI[md5sum] = "052458f0a35c2a3b0d2302caa3318e9f"
-SRC_URI[sha256sum] = "913c8dee918e5855a4ba60d609371390978144b4c8d15d6446ca0057b7bc5e58"
+SRC_URI[sha256sum] = "bb6b39bbe00099219e95ab34b25ea4348e1a95964eefc45c1e6fe32362ac9021"
 
 inherit autotools update-rc.d systemd
 
@@ -54,8 +51,8 @@ do_install_append () {
 
         if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
                 install -D -m 0755 ${WORKDIR}/kdump ${D}${libexecdir}/kdump-helper
-                install -D -m 0644 ${WORKDIR}/kdump.service ${D}${systemd_unitdir}/system/kdump.service
-                sed -i -e 's,@LIBEXECDIR@,${libexecdir},g' ${D}${systemd_unitdir}/system/kdump.service
+                install -D -m 0644 ${WORKDIR}/kdump.service ${D}${systemd_system_unitdir}/kdump.service
+                sed -i -e 's,@LIBEXECDIR@,${libexecdir},g' ${D}${systemd_system_unitdir}/kdump.service
         fi
 }
 
@@ -69,7 +66,7 @@ FILES_kdump = "${sbindir}/kdump \
                ${sysconfdir}/sysconfig/kdump.conf \
                ${sysconfdir}/init.d/kdump \
                ${libexecdir}/kdump-helper \
-               ${systemd_unitdir}/system/kdump.service \
+               ${systemd_system_unitdir}/kdump.service \
 "
 
 FILES_vmcore-dmesg = "${sbindir}/vmcore-dmesg"
