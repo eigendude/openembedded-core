@@ -283,6 +283,8 @@ PACKAGES =+ "${PN}-amphion-vpu-license ${PN}-amphion-vpu \
              ${PN}-rtl8168 \
              ${PN}-rtl8822 \
              ${PN}-rtl-nic \
+             ${PN}-rtlwifi \
+             ${PN}-rtw88 \
              ${PN}-cypress-license \
              ${PN}-broadcom-license \
              ${PN}-bcm-0bb4-0306 \
@@ -828,6 +830,8 @@ LICENSE:${PN}-rtl8822 = "Firmware-rtlwifi_firmware"
 LICENSE:${PN}-rtl-license = "Firmware-rtlwifi_firmware"
 LICENSE:${PN}-rtl-nic = "WHENCE"
 LICENSE:${PN}-rtl8168 = "WHENCE"
+LICENSE:${PN}-rtlwifi = "Firmware-rtlwifi_firmware"
+LICENSE:${PN}-rtw88 = "Firmware-rtlwifi_firmware"
 
 FILES:${PN}-rtl-license = " \
   ${nonarch_base_libdir}/firmware/LICENCE.rtlwifi_firmware.txt \
@@ -865,6 +869,12 @@ FILES:${PN}-rtl8822 = " \
 FILES:${PN}-rtl-nic = " \
   ${nonarch_base_libdir}/firmware/rtl_nic/*.fw \
 "
+FILES:${PN}-rtlwifi = " \
+  ${nonarch_base_libdir}/firmware/rtlwifi/*.bin \
+"
+FILES:${PN}-rtw88 = " \
+  ${nonarch_base_libdir}/firmware/rtw88/*.bin \
+"
 
 RDEPENDS:${PN}-rtl8188 += "${PN}-rtl-license"
 RDEPENDS:${PN}-rtl8192ce += "${PN}-rtl-license"
@@ -876,6 +886,8 @@ RDEPENDS:${PN}-rtl8761 += "${PN}-rtl-license"
 RDEPENDS:${PN}-rtl8822 += "${PN}-rtl-license"
 RDEPENDS:${PN}-rtl8168 += "${PN}-whence-license"
 RDEPENDS:${PN}-rtl-nic += "${PN}-whence-license"
+RDEPENDS:${PN}-rtlwifi += "${PN}-rtl-license"
+RDEPENDS:${PN}-rtw88 += "${PN}-rtl-license"
 
 # For TI wl1251
 LICENSE:${PN}-wl1251 = "Firmware-wl1251"
